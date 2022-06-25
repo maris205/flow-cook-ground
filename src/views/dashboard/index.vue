@@ -4,13 +4,13 @@
       <!-- 搜索框 -->
       <div class="search">
         <el-input
-          placeholder="请输入搜索词 进行搜索"
+          placeholder="Please input keyword to search code"
           v-model="word"
           class="input-with-select"
           @change="search()"
           style="width: 90%; margin-left: 5%; margin-top: 10px"
         >
-          <el-button slot="append" @click="search()">搜索</el-button>
+          <el-button slot="append" @click="search()">Search</el-button>
         </el-input>
       </div>
 <!--      <el-select v-model="es_index"  @change="change_index"	style="margin-left: 52px;margin-top: 10px" placeholder="选择索引库">-->

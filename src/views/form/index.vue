@@ -4,13 +4,13 @@
 
     <el-form ref="form" label-width="120px">
 
-      <el-form-item label="合约名称">
+      <el-form-item label="Contract name">
         <el-input v-model="name"
-                  placeholder="请输入合约名，也就是NFT/Token的名称"
+                  placeholder="please input contract name，the NFT/Token Name"
                    />
       </el-form-item>
 
-      <el-form-item label="合约类型">
+      <el-form-item label="Contract type">
         <el-select v-model="es_index"  @change="change_index" placeholder="选择索引库">
           <el-option
             v-for="item in options"
@@ -24,16 +24,16 @@
 
       <el-form-item>
         <el-button type="primary" @click="analyze()">
-          生成合约
+          Generate code
         </el-button>
       </el-form-item>
     </el-form>
 
 
     <el-form ref="form1"  label-width="120px">
-      <el-form-item label="合约代码">
+      <el-form-item label="Contract code">
         <el-input v-model="code_text"
-                  placeholder="显示主合约代码"
+                  placeholder="Main contract code"
                   :rows="10" type="textarea"/>
       </el-form-item>
 
