@@ -28,7 +28,7 @@
     <el-card  v-for="(item, index) in search_result" :key="index" style="height: 150px" >
       <div slot="header" class="clearfix">
         <span><el-link type="primary" :href="item.url" target="_blank">
-          <span v-html="(index+1) + '：'+ item.title"></span>
+          <span v-html="(start+index+1) + '：'+ item.title"></span>
         </el-link></span>
         <el-button style="float: right; padding: 3px 0;color: green" type="text">{{item.score}}</el-button>
       </div>

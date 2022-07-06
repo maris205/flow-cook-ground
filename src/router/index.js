@@ -55,28 +55,6 @@ export const constantRoutes = [
     }]
   },
 
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'URL识别', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: '标签匹配', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: '正则匹配', icon: 'tree' }
-  //     }
-  //   ]
-  // },
-
   {
     path: '/form',
     component: Layout,
@@ -89,6 +67,29 @@ export const constantRoutes = [
       }
     ]
   },
+
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example',
+    meta: { title: 'blind box template', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Demo', icon: 'tree' }
+      },
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: 'Generate code', icon: 'table' }
+      }
+    ]
+  },
+
   // {
   //   path: '/nested',
   //   component: Layout,

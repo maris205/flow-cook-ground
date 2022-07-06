@@ -1,109 +1,116 @@
 <template>
   <div class="app-container">
 
-    <el-input v-model="domain" placeholder="输入主域名，如http://weibo.com" style="margin-bottom:30px;" />
+    <el-form :inline="true"  class="demo-form-inline">
+      <div  v-for="item in item_prob">
+        <el-form-item label="Item name">
+          <el-input v-model="item.name" disabled placeholder="name like ipad" />
+        </el-form-item>
+        <el-form-item label="Item prob">
+          <el-input v-model="item.prob" disabled placeholder="prob like 0.1, [0,1]" />
+        </el-form-item>
 
-    <el-input
-      type="textarea"
-      :rows="10"
-      placeholder="请输入html源码"
-      v-model="html_text">
-    </el-input>
+        <br/>
+      </div>
 
-    <p></p>
+    </el-form>
 
+    <hr/>
 
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="标签层级(1-3)">
-        <el-input v-model="level" placeholder="请输入标签匹配"></el-input>
+    <el-form ref="form" label-width="120px">
+
+      <el-form-item label="Contract name">
+        <el-input v-model="name"
+                  placeholder="please input contract name，the NFT collection Name"
+        />
       </el-form-item>
+
+      <el-form-item label="Code type">
+        <el-select v-model="es_index"  @change="change_index" placeholder="">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+
 
       <el-form-item>
-        <el-button type="primary" @click="get_tag_classify()" :disabled="url_classify_button">分析链接</el-button>
-      </el-form-item>
-      <el-form-item label="标签匹配检测">
-        <el-input v-model="str_re" placeholder="请输入标签匹配"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="get_tag_match()" :disabled="url_match_button">查询匹配</el-button>
-        {{stat_text}}
+        <el-button type="primary" @click="analyze()">
+          Generate code
+        </el-button>
       </el-form-item>
     </el-form>
 
-    <!--<p>推荐正则：</p>-->
+    <el-form ref="form1"  label-width="120px">
+      <el-form-item label="Code content">
+        <el-input v-model="code_text"
+                  placeholder="Main  code"
+                  :rows="10" type="textarea"/>
+      </el-form-item>
 
-    <!--<el-card class="box-card">-->
-    <!--<div slot="header" class="clearfix">-->
-    <!--<span>推荐正则表达式</span>-->
-    <!--</div>-->
-    <!--<div class="text item">-->
-    <!--*-->
-    <!--</div>-->
-    <!--</el-card>-->
+    </el-form>
 
-    <el-tree
-      ref="tree2"
-      :data="data2"
-      :props="defaultProps"
-      :filter-node-method="filterNode"
-      class="filter-tree"
-      default-expand-all
-    />
 
   </div>
 </template>
 
 <script>
-import { getList,hello,get_tag_classify,get_tag_match } from '@/api/ins'
+
+import { code } from '@/api/es_code'
 
 export default {
   data() {
     return {
       formInline:{},
-      domain: '',
-      html_text:"",
-      str_re:'<a href="[url]"',
-      domain:"",
-      stat_text:"", //正则统计数据
-      level:1, //标签级别
-      url_classify_button:false,
-      url_match_button:false,
-      data2: [],
-
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      item_prob:[{"name":"纸巾","prob":0.5},
+        {"name":"鼠标","prob":0.3},
+        {"name":"键盘","prob":0.14},
+        {"name":"iPad","prob":0.05},
+        {"name":"Macbook","prob":0.01}],
+      name:"",//输入的行业名称
+      code_text:"",//结果
+      select_index:"",
+      es_index:"",
+      options: [],//索引列表
     }
   },
   created() {
-
+    this.get_index()
   },
   methods: {
     filterNode(value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
+    //获得类型列表
+    get_index() {
+      this.options.push({value:'cadence',label:'cadence'})
+      this.options.push({value:'vue.js',label:'vue.js'})
 
-    get_tag_classify() {
-      this.url_classify_button = true
-      get_tag_classify({domain:this.domain, html:this.html_text, level:this.level}).then(response => {
-        var data = response
-        this.data2 = data.results
-        console.log(this.data2)
-        this.url_classify_button = false
+      this.es_index = 'cadence' //默认一个index
+      this.select_index = "cadence"
+    },
+
+    change_index(es_index) {
+      this.select_index = es_index
+      console.log("select index", es_index)
+    },
+
+    //获得合约
+    analyze() {
+      let data = {
+        "name": this.name,
+        "code_type": this.select_index
+      }
+      code(data).then(response => {
+        console.log(response)
+        this.code_text = response.results[0].contract
       })
     },
 
-    get_tag_match() {
-      this.url_match_button = true
-      get_tag_match({domain:this.domain, html:this.html_text, level:this.level, str_re:this.str_re}).then(response => {
-        var data = response
-        this.data2 = data.results
-        console.log(this.data2)
-        this.url_match_button = false
-      })
-    },
   }
 }
 </script>
