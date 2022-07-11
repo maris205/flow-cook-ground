@@ -9,7 +9,6 @@
         <el-form-item label="Item prob">
           <el-input v-model="item.prob" disabled placeholder="prob like 0.1, [0,1]" />
         </el-form-item>
-
         <br/>
       </div>
 
@@ -18,13 +17,6 @@
     <hr/>
 
     <br/>
-
-<!--    <el-progress-->
-<!--      :percentage="100"-->
-<!--      status="success"-->
-<!--      :indeterminate="true"-->
-<!--      :duration="5"-->
-<!--    />-->
 
     <br/>
 
