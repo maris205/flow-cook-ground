@@ -139,16 +139,15 @@ export default {
     },
     //获得索引列表
     get_index() {
-      get_index().then(response => {
-        console.log(response)
-        let result = response;
-        for (let i=0;i<result.length;i++) {
-          let index_name = result[i].index
-          this.options.push({value:index_name,label:index_name})
-        }
-        this.es_index = result[1].index //默认一个index
-        this.select_index = result[1]
+      const TronWeb = require('tronweb')
+      const tronWeb = new TronWeb({
+        fullHost: 'https://api.shasta.trongrid.io',
+        headers: { "TRON-PRO-API-KEY": 'fec19e87-e92e-4e92-abbb-9b5d497e527f' },
+        privateKey: 'c279a9ef3d84f8d45038834e15039dd4ea57f2f19a1d4bae5489a79febe83b57'
       })
+      console.log(tronWeb.address.toHex("TNPeeaaFB7K9cmo4uQpcU32zGK8G1NYqeL"))
+
+      tronWeb.trx.getAccount('TUjgT7GiZeyDAokyjFp7WiatHJUjCZUL4J').then(result => console.log(result))
     },
     //翻页
     change_page(page) {

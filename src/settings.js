@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Flow.Cook',
+  title: 'Flow.LuckyBox',
 
   /**
    * @type {boolean} true | false

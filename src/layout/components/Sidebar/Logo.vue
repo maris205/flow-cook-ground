@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: 'Flow.Cook',
+      title: 'Flow.LuckyBox',
       logo: require('../../../assets/icon2.png')
     }
   }
